@@ -25,6 +25,10 @@
     <div class="flexbox-container">
       <div>
         <h3>Repositories</h3>
+        <form>
+          Search Terms <input id=searchTerms type="text"></input>
+        </form>
+        <a href="#" onclick="searchRepositories()">Search Repositories</a>
         <div id="results"></div>
       </div>
       <div>
@@ -34,5 +38,26 @@
     </div>
     <script src="jquery-3.1.0.min.js"></script>
     <script src="index.js"></script>
+    <script src="handlebars.js"></script>
+    <script id="repository-template" type="text/x-handlebars-template">
+  <ul>
+   {{#each this}}
+     <li>
+       <h2><a href="{{html_url}}">{{name}}</a></h2>
+       {{> authorPartial owner }}
+       <p>Watchers: {{watchers_count}}</p>
+       <p>Forks: {{forks_count}}</p>
+       <p>Issues: {{open_issues_count}}</p>
+       <a href="#" onclick="getCommits()">Get Commits</a>
+     </li>
+    {{/each}}
+  </ul>
+</script>
+<script id="author-partial-template" type="text/x-handlebars-template">
+  <section>
+    <header><h4>Created By {{login}}</h4></header>
+    <img src="{{avatar_url}}" height="32" width="32">
+  </section>
+</script>
   </body>
 </html>
